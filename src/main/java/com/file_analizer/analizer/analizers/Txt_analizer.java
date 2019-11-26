@@ -1,7 +1,8 @@
 package com.file_analizer.analizer.analizers;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,6 +32,9 @@ public class Txt_analizer implements File_analizer {
         if(method_alias.compareTo("2") == 0){
             answer = symbol_frequency(text_content.toString());
         }
+        if(method_alias.compareTo("3") == 0){
+            answer = "Частотность фразы: " + fraze_frequency(text_content.toString());
+        }
 
         return answer;
     }
@@ -47,7 +51,16 @@ public class Txt_analizer implements File_analizer {
         return answer.toString();
     }
 
-    public String something(){
-        return null;
+    public String fraze_frequency(String line){
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите фразу");
+        String fraze;
+        try {
+            fraze = reader.readLine();
+        } catch (IOException e) {
+            return "Что-то пошло не так";
+        }
+        int occurrence = StringUtils.countMatches(line, fraze);
+        return Integer.toString(occurrence);
     }
 }

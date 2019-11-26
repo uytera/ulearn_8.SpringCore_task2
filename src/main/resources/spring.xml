@@ -15,6 +15,7 @@
     <util:map id="loggerMap">
         <entry key="mp3" value-ref="Mp3_analizer" />
         <entry key="jpg" value-ref="Img_analizer"/>
+        <entry key="png" value-ref="Img_analizer"/>
         <entry key="txt" value-ref="Txt_analizer" />
         <entry key="folder" value-ref="Folder_analizer" />
     </util:map>

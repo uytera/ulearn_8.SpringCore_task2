@@ -5,7 +5,10 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //D:\Downloads\Cullah - Cullahsus (2018) - 320\Cullah - Cullahsus (2018) - 320\Folder.jpg
@@ -26,6 +29,9 @@ public class Img_analizer implements File_analizer {
         }
         if(method_alias.compareTo("2") == 0){
             answer = exif_information(metadata);
+        }
+        if(method_alias.compareTo("3") == 0){
+            answer = full_image_information(metadata);
         }
 
         return answer;
@@ -54,6 +60,15 @@ public class Img_analizer implements File_analizer {
             answer.append(tag.getTagName() + " : " + tag.getDescription() + "\n");
         }
 
+        return answer.toString();
+    }
+
+    public String full_image_information(Metadata metadata){
+        StringBuilder answer = new StringBuilder("Информация о изображении: \n" );
+        ArrayList<Directory> directories = (ArrayList<Directory>) metadata.getDirectories();
+        for (Tag tag : directories.get(0).getTags()){
+                answer.append(tag.getTagName() + " - " + tag.getDescription() + "\n");
+        }
         return answer.toString();
     }
 }

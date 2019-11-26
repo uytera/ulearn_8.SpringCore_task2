@@ -27,7 +27,7 @@ public class Analizer_application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 		Analizer_application analizer = (Analizer_application) ctx.getBean("Analizer_application");
-		analizer.analize();
+		System.out.println(analizer.analize());
 	}
 
 	public Analizer_application(){}
@@ -38,6 +38,7 @@ public class Analizer_application {
 
 	public String analize() {
 		String method_alias;
+		String answer;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Введите путь к файлу");
@@ -64,7 +65,7 @@ public class Analizer_application {
 			return null;
 		}
 
-		System.out.println(analizer.analize(method_alias, path));
-		return analizer.analize(method_alias, path);
+		answer = analizer.analize(method_alias, path);
+		return answer;
 	}
 }

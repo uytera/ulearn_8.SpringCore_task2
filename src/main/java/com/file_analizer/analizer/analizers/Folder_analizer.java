@@ -1,6 +1,9 @@
 package com.file_analizer.analizer.analizers;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Folder_analizer implements File_analizer {
 
@@ -14,6 +17,9 @@ public class Folder_analizer implements File_analizer {
         }
         if(method_alias.compareTo("2") == 0){
             answer = "Размер файлов в директории: " + file_size_of_folder(directory) + "bytes";
+        }
+        if(method_alias.compareTo("3") == 0){
+            answer = folder_analize(directory);
         }
 
         return answer;
@@ -51,5 +57,34 @@ public class Folder_analizer implements File_analizer {
         }
 
         return Integer.toString(size_in_bytes);
+    }
+
+    public String folder_analize(File directory){
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder answer = new StringBuilder("Файлы в каталоге \n");
+
+        System.out.println("Введите расширение файла");
+        String extension;
+        try {
+            extension = reader.readLine();
+        } catch (IOException e) {
+            return "Что-то пошло не так";
+        }
+        if (directory.isDirectory()){
+            for (File file : directory.listFiles()) {
+                if(file.isFile()){
+                    String name = file.getName();
+                    int index = name.indexOf('.');
+                    if(extension.compareTo(name.substring(index + 1)) == 0){
+                        answer.append(file.getName() + "\n");
+                    }
+                }
+            }
+        }
+        else{
+            return "На вход подана не директория";
+        }
+
+        return answer.toString();
     }
 }
